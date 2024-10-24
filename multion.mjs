@@ -17,7 +17,7 @@ const prResponse = await multion.browse({
   maxSteps: 3,
 });
 
-console.log("PR analysis:\n" + prResponse.message);
+console.log("### PR analysis:\n" + prResponse.message);
 
 const browseResponse = await multion.browse({
   cmd: "Output the results of the performed test: " + prResponse.message,
@@ -25,4 +25,4 @@ const browseResponse = await multion.browse({
   maxSteps: 5,
 });
 
-console.log("Test results:\n" + browseResponse.message);
+console.log("### Test results:\n" + browseResponse.message);
