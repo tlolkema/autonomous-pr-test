@@ -1,0 +1,45 @@
+name: PR Pipeline
+
+on:
+  pull_request:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20' 
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        id: waitForVercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 60
+
+      - name: Print PR preview URL
+        run: echo ${{steps.waitForVercel.outputs.url}}
+
+      - name: Run MultiOn
+        id: run_multion
+        run: |
+          OUTPUT=$(node ./multion.mjs "${{ github.event.pull_request.html_url }}" "${{steps.waitForVercel.outputs.url}}")
+          echo "browse_response<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        env:
+          MULTION_API_KEY: ${{ secrets.MULTION_API_KEY }}
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            ${{ steps.run_multion.outputs.browse_response }}
