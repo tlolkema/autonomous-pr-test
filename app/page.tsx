@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [errorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <div
@@ -31,9 +31,20 @@ export default function Home() {
           <li>The final report will be posted as a GitHub comment.</li>
         </ol>
 
-        {errorMessage && (
-          <div className="mt-4 text-red-500">{errorMessage}</div>
-        )}
+        {/* It's important that this button will have a confetti effect when clicked and no error message is shown */}
+        <div className="mt-4 flex items-center gap-4">
+          <button
+            onClick={() => {
+              // confetti();=
+              setErrorMessage("An error occurred!"); // Set the error message
+            }}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Click Me For Confetti
+          </button>
+
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+        </div>
       </main>
     </div>
   );
