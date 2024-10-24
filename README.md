@@ -70,4 +70,10 @@ While this is a very simple demo autonomous browsing can be used to verify more 
 
 ### Generated comment
 
-![pr-comment](https://github.com/user-attachments/assets/dc676d43-3b13-40e4-bcde-0beaab2e1f9b)
+![pr-comment](https://github.com/user-attachments/assets/8842e990-340b-412d-9313-40b05acffb94)
+
+### Video
+
+https://github.com/user-attachments/assets/83c99bf2-e8ae-4020-aa86-9166031fcf77
+
+
